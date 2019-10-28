@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class KnightFigure : ChessFigure
 {
-    public override List<Vector2> GetAvailableCellsCoordinates()
+    public override List<DeskCell> GetAvailableCellsToMove(bool withAttackRange)
     {
         Vector2[] cellOffsets = new Vector2[8]
         {
@@ -18,7 +18,7 @@ public class KnightFigure : ChessFigure
             new Vector2(-1, -2),
         };
 
-        List<Vector2> availableCells = new List<Vector2>();
+        List<DeskCell> availableCells = new List<DeskCell>();
 
         foreach (Vector2 coord in cellOffsets)
         {
@@ -36,7 +36,7 @@ public class KnightFigure : ChessFigure
                 continue;
 
             // добавляем ячейку в доступные
-            availableCells.Add(new Vector2(cellRowNum, cellColumnNum));
+            availableCells.Add(cell);
         }
 
         return availableCells;

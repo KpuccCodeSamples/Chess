@@ -18,21 +18,26 @@ public class ChessFigure : MonoBehaviour
     public Sprite[] m_FiguresSprites;
 
     ////////////////
-    public virtual List<Vector2> GetAvailableCellsCoordinates()
+    public virtual List<DeskCell> GetAvailableCellsToMove(bool withAttackRange = false)
     {
         return null;
     }
 
     ////////////////
-    public void SetupFigure(ChessColor color, DeskCell cell)
+    public virtual void SetupFigure(ChessColor color, DeskCell cell)
     {
         FigureColor = color;
         m_FigureSprite.overrideSprite = m_FiguresSprites[(int)color];
         Cell = cell;
+
+        if (color == ChessColor.White)
+            DeskController.Instance.WhiteFigures.Add(this);
+        else
+            DeskController.Instance.BlackFigures.Add(this);
     }
 
     ////////////////
-    public void MoveFigure(DeskCell targetCell)
+    public virtual void MoveFigure(DeskCell targetCell)
     {
         transform.SetParent(targetCell.transform);
         transform.DOLocalMove(Vector3.zero, 1).SetEase(Ease.InOutCubic);

@@ -23,8 +23,9 @@ public class DeskRow : MonoBehaviour
                 }
                 break;
             
-            // устанавливаем белые фигуры 
+            // устанавливаем особые фигуры 
             case 0:
+            case 7:
                 for (int i = 0; i < m_RowCells.Length; i++)
                 {
                     ChessFigure figure = null; 
@@ -42,38 +43,6 @@ public class DeskRow : MonoBehaviour
                         figure = DeskController.Instance.GetFigurePrefab(ChessFiguresType.Bishop);
                     }
                     else if (i == 3)
-                    {
-                        figure = DeskController.Instance.GetFigurePrefab(ChessFiguresType.Queen);
-                    }
-                    else
-                    {
-                        figure = DeskController.Instance.GetFigurePrefab(ChessFiguresType.King);
-                    }
-
-                    Vector2 coordinates = new Vector2(rowIndex, i);
-                    m_RowCells[i].SetupCell(coordinates, figure);
-                }
-                break;
-
-            // устанавливаем черные фигуры 
-            case 7:
-                for (int i = 0; i < m_RowCells.Length; i++)
-                {
-                    ChessFigure figure = null;
-
-                    if (i == 0 || i == 7)
-                    {
-                        figure = DeskController.Instance.GetFigurePrefab(ChessFiguresType.Rook);
-                    }
-                    else if (i == 1 || i == 6)
-                    {
-                        figure = DeskController.Instance.GetFigurePrefab(ChessFiguresType.Knight);
-                    }
-                    else if (i == 2 || i == 5)
-                    {
-                        figure = DeskController.Instance.GetFigurePrefab(ChessFiguresType.Bishop);
-                    }
-                    else if (i == 4)
                     {
                         figure = DeskController.Instance.GetFigurePrefab(ChessFiguresType.Queen);
                     }

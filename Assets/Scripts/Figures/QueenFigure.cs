@@ -5,14 +5,14 @@ using UnityEngine;
 public class QueenFigure : ChessFigure
 {
     ////////////////
-    public override List<Vector2> GetAvailableCellsCoordinates()
+    public override List<DeskCell> GetAvailableCellsToMove(bool withAttackRange)
     {
-        List<Vector2> availableCells = RookFigure.GetRookAvailableCells((int)Cell.CellCoordinates.x, (int)Cell.CellCoordinates.y, FigureColor);
+        List<DeskCell> availableCells = RookFigure.GetRookAvailableCells((int)Cell.CellCoordinates.x, (int)Cell.CellCoordinates.y, FigureColor);
 
-        foreach (Vector2 coord in BishopFigure.GetBishopAvailableCells((int)Cell.CellCoordinates.x, (int)Cell.CellCoordinates.y, FigureColor))
+        foreach (DeskCell cell in BishopFigure.GetBishopAvailableCells((int)Cell.CellCoordinates.x, (int)Cell.CellCoordinates.y, FigureColor))
         {
-            if (!availableCells.Contains(coord))
-                availableCells.Add(coord);
+            if (!availableCells.Contains(cell))
+                availableCells.Add(cell);
         }
 
         return availableCells;

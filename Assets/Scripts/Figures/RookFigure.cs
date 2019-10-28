@@ -4,16 +4,34 @@ using UnityEngine;
 
 public class RookFigure : ChessFigure
 {
+    public bool m_WasMoved = false;
+
+    public DeskCell m_CastlingCell;
+
     ////////////////
-    public override List<Vector2> GetAvailableCellsCoordinates()
+    public override void SetupFigure(ChessColor color, DeskCell cell)
+    {
+        base.SetupFigure(color, cell);
+
+        int rowIndex = (int)cell.CellCoordinates.x;
+        int columnIndex = (int)Cell.CellCoordinates.y;
+
+        if (columnIndex == 0)
+            m_CastlingCell = DeskController.Instance.GetCell(rowIndex, columnIndex + 3);
+        else if (columnIndex == 7)
+            m_CastlingCell = DeskController.Instance.GetCell(rowIndex, columnIndex - 2);
+    }
+
+    ////////////////
+    public override List<DeskCell> GetAvailableCellsToMove(bool withAttackRange)
     {
         return GetRookAvailableCells((int)Cell.CellCoordinates.x, (int)Cell.CellCoordinates.y, FigureColor);
     }
 
     ////////////////
-    public static List<Vector2> GetRookAvailableCells(int rowIndex, int columnIndex, ChessColor figureColor)
+    public static List<DeskCell> GetRookAvailableCells(int rowIndex, int columnIndex, ChessColor figureColor)
     {
-        List<Vector2> availableCells = new List<Vector2>();
+        List<DeskCell> availableCells = new List<DeskCell>();
 
         // проверяем ячейки по горизонтали вправо
         for (int i = 1; i <= 7; i++)
@@ -30,7 +48,7 @@ public class RookFigure : ChessFigure
             if (cell.Figure != null && cell.Figure.FigureColor == figureColor)
                 break;
 
-            availableCells.Add(cell.CellCoordinates);
+            availableCells.Add(cell);
 
             // если в ячейке есть чужая фигура, дальше не смотрим
             if (cell.Figure != null && cell.Figure.FigureColor != figureColor)
@@ -52,7 +70,7 @@ public class RookFigure : ChessFigure
             if (cell.Figure != null && cell.Figure.FigureColor == figureColor)
                 break;
 
-            availableCells.Add(cell.CellCoordinates);
+            availableCells.Add(cell);
 
             // если в ячейке есть чужая фигура, дальше не смотрим
             if (cell.Figure != null && cell.Figure.FigureColor != figureColor)
@@ -74,7 +92,7 @@ public class RookFigure : ChessFigure
             if (cell.Figure != null && cell.Figure.FigureColor == figureColor)
                 break;
 
-            availableCells.Add(cell.CellCoordinates);
+            availableCells.Add(cell);
 
             // если в ячейке есть чужая фигура, дальше не смотрим
             if (cell.Figure != null && cell.Figure.FigureColor != figureColor)
@@ -96,7 +114,7 @@ public class RookFigure : ChessFigure
             if (cell.Figure != null && cell.Figure.FigureColor == figureColor)
                 break;
 
-            availableCells.Add(cell.CellCoordinates);
+            availableCells.Add(cell);
 
             // если в ячейке есть чужая фигура, дальше не смотрим
             if (cell.Figure != null && cell.Figure.FigureColor != figureColor)
@@ -104,5 +122,13 @@ public class RookFigure : ChessFigure
         }
 
         return availableCells;
+    }
+
+    ////////////////
+    public override void MoveFigure(DeskCell targetCell)
+    {
+        base.MoveFigure(targetCell);
+
+        m_WasMoved = true;
     }
 }

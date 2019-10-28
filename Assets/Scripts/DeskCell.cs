@@ -38,7 +38,7 @@ public class DeskCell : MonoBehaviour
     }
 
     ///////////////
-    private void UpdateCellAvailability(List<Vector2> list)
+    private void UpdateCellAvailability(List<DeskCell> list)
     {
         if (list == null)
         {
@@ -46,7 +46,7 @@ public class DeskCell : MonoBehaviour
             return;
         }
 
-        bool isCellAvailableToMove = list.Contains(CellCoordinates);
+        bool isCellAvailableToMove = list.Contains(this);
 
         m_PlusImage.gameObject.SetActive(isCellAvailableToMove);
     }

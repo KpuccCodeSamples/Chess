@@ -5,15 +5,15 @@ using UnityEngine;
 public class BishopFigure : ChessFigure
 {
     ////////////////
-    public override List<Vector2> GetAvailableCellsCoordinates()
+    public override List<DeskCell> GetAvailableCellsToMove(bool withAttackRange)
     {
         return GetBishopAvailableCells((int)Cell.CellCoordinates.x, (int)Cell.CellCoordinates.y, FigureColor);
     }
 
     ////////////////
-    public static List<Vector2> GetBishopAvailableCells(int rowIndex, int columnIndex, ChessColor figureColor)
+    public static List<DeskCell> GetBishopAvailableCells(int rowIndex, int columnIndex, ChessColor figureColor)
     {
-        List<Vector2> availableCells = new List<Vector2>();
+        List<DeskCell> availableCells = new List<DeskCell>();
 
         // проверяем ячейки по диагонали вправо вверх
         for (int i = 1; i <= 7; i++)
@@ -31,7 +31,7 @@ public class BishopFigure : ChessFigure
             if (cell.Figure != null && cell.Figure.FigureColor == figureColor)
                 break;
 
-            availableCells.Add(cell.CellCoordinates);
+            availableCells.Add(cell);
 
             // если в ячейке есть чужая фигура, дальше не смотрим
             if (cell.Figure != null && cell.Figure.FigureColor != figureColor)
@@ -54,7 +54,7 @@ public class BishopFigure : ChessFigure
             if (cell.Figure != null && cell.Figure.FigureColor == figureColor)
                 break;
 
-            availableCells.Add(cell.CellCoordinates);
+            availableCells.Add(cell);
 
             // если в ячейке есть чужая фигура, дальше не смотрим
             if (cell.Figure != null && cell.Figure.FigureColor != figureColor)
@@ -77,7 +77,7 @@ public class BishopFigure : ChessFigure
             if (cell.Figure != null && cell.Figure.FigureColor == figureColor)
                 break;
 
-            availableCells.Add(cell.CellCoordinates);
+            availableCells.Add(cell);
 
             // если в ячейке есть чужая фигура, дальше не смотрим
             if (cell.Figure != null && cell.Figure.FigureColor != figureColor)
@@ -100,7 +100,7 @@ public class BishopFigure : ChessFigure
             if (cell.Figure != null && cell.Figure.FigureColor == figureColor)
                 break;
 
-            availableCells.Add(cell.CellCoordinates);
+            availableCells.Add(cell);
 
             // если в ячейке есть чужая фигура, дальше не смотрим
             if (cell.Figure != null && cell.Figure.FigureColor != figureColor)
