@@ -148,14 +148,15 @@ public class DeskController : MonoBehaviour
     /////////////
     private KingFigure GetKing(ChessColor color)
     {
-        for (int i = 0; i < WhiteFigures.Count; i++)
-        {
-            if (WhiteFigures[i] is KingFigure)
-            {
-                KingFigure king = WhiteFigures[i] as KingFigure;
+        List<ChessFigure> figures = color == ChessColor.Black ? BlackFigures : WhiteFigures;
 
-                if (king.FigureColor == color)
-                    return king;
+        for (int i = 0; i < figures.Count; i++)
+        {
+            if (figures[i] is KingFigure)
+            {
+                KingFigure king = figures[i] as KingFigure;
+
+                return king;
             }
         }
 
